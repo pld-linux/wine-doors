@@ -40,19 +40,19 @@
 -			share = prefix + "share/wine-doors/"
 -			conf_file = "/etc/wine-doors/preferences.xml"
 -			copyfile( "./dist/wine-doors.desktop",  prefix + "share/applications/wine-doors.desktop" )		
-+			share = root + prefix + "/share/wine-doors"
-+			conf_file = root + "/etc/wine-doors/preferences.xml"
-+			copyfile( "./dist/wine-doors.desktop",  root + prefix + "/share/applications/wine-doors.desktop" )		
++			share = os.path.join(root + prefix, "share/wine-doors")
++			conf_file = os.path.join(root, "etc/wine-doors/preferences.xml")
++			copyfile( "./dist/wine-doors.desktop",  os.path.join(root + prefix, "share/applications/wine-doors.desktop") )
  		else:
  			print "Performing user install"
 -			prefix = os.path.expanduser( "~/" )
 +			prefix = os.path.expanduser( "~" )
  			local = os.path.expanduser( "~/.local/")
 -			share = prefix + ".wine-doors/"
-+			share = prefix + "/.wine-doors"
++			share = os.path.join(prefix, ".wine-doors")
  			conf_file = os.path.expanduser( "~/.winedoors.xml" )
 -			copyfile( "./dist/wine-doors.desktop", local + "share/applications/wine-doors.desktop" )		
-+			copyfile( "./dist/wine-doors.desktop", local + "/share/applications/wine-doors.desktop" )		
++			copyfile( "./dist/wine-doors.desktop", os.path.join(local, "share/applications/wine-doors.desktop") )
  	  
  	  	print "Compressing and installing pack files"
 -		if not os.path.isdir( share + "base.repo" ):
@@ -61,24 +61,24 @@
 -			os.makedirs( share + "global.repo" )
 -		copygzip( "./repos/base.repo/packlist.xml", share + "base.repo/packlist.xml.gz" )
 -		copypacks( "./repos/base.repo/", share + "global.repo/" )
-+		if not os.path.isdir( share + "/base.repo" ):
-+			os.makedirs( share + "/base.repo/" )
-+		if not os.path.isdir( share + "/global.repo" ):
-+			os.makedirs( share + "/global.repo" )
-+		copygzip( "./repos/base.repo/packlist.xml", share + "/base.repo/packlist.xml.gz" )
-+		copypacks( "./repos/base.repo", share + "/global.repo/" )
++		if not os.path.isdir( os.path.join(share, "base.repo") ):
++			os.makedirs( os.path.join(share, "base.repo") )
++		if not os.path.isdir( os.path.join(share, "global.repo") ):
++			os.makedirs( os.path.join(share, "global.repo") )
++		copygzip( "./repos/base.repo/packlist.xml", os.path.join(share, "base.repo/packlist.xml.gz") )
++		copypacks( "./repos/base.repo", os.path.join(share, "global.repo") )
  		print "  ** Base Repo"
 -		copygzip( "./repos/global.repo/packlist.xml", share + "global.repo/packlist.xml.gz" )
-+		copygzip( "./repos/global.repo/packlist.xml", share + "/global.repo/packlist.xml.gz" )
++		copygzip( "./repos/global.repo/packlist.xml", os.path.join(share, "global.repo/packlist.xml.gz") )
  		print "  ** Global Repo"
 -		copypacks( "./repos/global.repo/", share + "global.repo/" )
 -		copyfiles( "./src", share + "src" )
 -		copyfiles( "./pixmaps", share + "pixmaps" )
 -		copyfiles( "./dtd", share + "dtd" )
-+		copypacks( "./repos/global.repo", share + "/global.repo/" )
-+		copyfiles( "./src", share + "/src" )
-+		copyfiles( "./pixmaps", share + "/pixmaps" )
-+		copyfiles( "./dtd", share + "/dtd" )
++		copypacks( "./repos/global.repo", os.path.join(share, "global.repo") )
++		copyfiles( "./src", os.path.join(share, "src") )
++		copyfiles( "./pixmaps", os.path.join(share, "pixmaps") )
++		copyfiles( "./dtd", os.path.join(share, "dtd") )
  
  		print "Symlinking resources"
 -		if os.environ['USER'] == "root":
@@ -87,20 +87,20 @@
 -			symlink( share + "pixmaps/wine-doors.png", prefix + "/share/pixmaps/wine-doors.png" )
 -			symlink( share + "pixmaps/wine-doors.svg", prefix + "/share/pixmaps/wine-doors.svg" )
 +		if os.environ['USER'] == "root" or sysinstall:
-+			if not os.path.isdir( root + "/etc/wine-doors" ):
-+				os.makedirs( root + "/etc/wine-doors" )
-+			symlink( share + "/pixmaps/wine-doors.png", root + prefix + "/share/pixmaps/wine-doors.png" )
-+			symlink( share + "/pixmaps/wine-doors.svg", root + prefix + "/share/pixmaps/wine-doors.svg" )
++			if not os.path.isdir( os.path.join(root, "etc/wine-doors") ):
++				os.makedirs( os.path.join(root, "etc/wine-doors") )
++			symlink( share + "/pixmaps/wine-doors.png", os.path.join(root + prefix, "share/pixmaps/wine-doors.png") )
++			symlink( share + "/pixmaps/wine-doors.svg", os.path.join(root + prefix, "share/pixmaps/wine-doors.svg") )
  		
 -		symlink( share + "src/winedoors.py", prefix + "/bin/wine-doors" )
-+		symlink( share + "/src/winedoors.py", root + prefix + "/bin/wine-doors" )
++		symlink( share + "/src/winedoors.py", os.path.join(root + prefix, "bin/wine-doors") )
  		print "Creating initial preferences"
  		preferences.preferences['prefix'] = prefix
  		preferences.Default()
 -		preferences.AddRepo( "System Global", share + "global.repo/" )
 -		preferences.AddRepo( "System Base", share +  "base.repo/" )
-+		preferences.AddRepo( "System Global", share + "/global.repo/" )
-+		preferences.AddRepo( "System Base", share +  "/base.repo/" )
++		preferences.AddRepo( "System Global", os.path.join(share, "global.repo") )
++		preferences.AddRepo( "System Base", os.path.join(share, "base.repo") )
  		preferences.Save( conf_file )
  	elif command == "uninstall":
  		if os.path.exists( prefix + "/bin/wine-doors" ):
@@ -109,7 +109,7 @@
  				preferences.Load( "/etc/wine-doors/preferences.xml" )
  				prefix = preferences['prefix']
 -			share = prefix + "share/wine-doors"
-+			share = prefix + "/share/wine-doors"
++			share = os.path.join(prefix, "share/wine-doors")
  			if os.path.exists( "/etc/wine-doors" ):
  				shutil.rmtree( "/etc/wine-doors" )
  			print "Removing symlinks"
@@ -117,20 +117,20 @@
 -				os.remove( prefix + "share/pixmaps/wine-doors.png" )
 -			if os.path.exists( prefix + "share/pixmaps/wine-doors.png" ):
 -				os.remove( prefix + "share/pixmaps/wine-doors.svg" )
-+			if os.path.exists( prefix + "/share/pixmaps/wine-doors.png" ):
-+				os.remove( prefix + "/share/pixmaps/wine-doors.png" )
-+			if os.path.exists( prefix + "/share/pixmaps/wine-doors.png" ):
-+				os.remove( prefix + "/share/pixmaps/wine-doors.svg" )
++			if os.path.exists( os.path.join(prefix, "share/pixmaps/wine-doors.png") ):
++				os.remove( os.path.join(prefix, "share/pixmaps/wine-doors.png") )
++			if os.path.exists( os.path.join(prefix, "share/pixmaps/wine-doors.png") ):
++				os.remove( os.path.join(prefix, "share/pixmaps/wine-doors.svg") )
  			print "Removing menu item"
 -			if os.path.exists( prefix + "share/applications/wine-doors.desktop" ):
 -				os.remove (prefix + "share/applications/wine-doors.desktop" )
-+			if os.path.exists( prefix + "/share/applications/wine-doors.desktop" ):
-+				os.remove (prefix + "/share/applications/wine-doors.desktop" )
++			if os.path.exists( os.path.join(prefix, "share/applications/wine-doors.desktop") ):
++				os.remove( os.path.join(prefix, "share/applications/wine-doors.desktop") )
  		else:
 -			prefix = os.path.expanduser( "~/" )
 -			share = prefix + ".wine-doors/"
 +			prefix = os.path.expanduser( "~" )
-+			share = prefix + "/.wine-doors/"
++			share = os.path.join(prefix, ".wine-doors")
  			local = os.path.expanduser( "~/.local/")
  			print "Removing menu item"
  			if os.path.exists( local + "share/applications/wine-doors.desktop" ):
