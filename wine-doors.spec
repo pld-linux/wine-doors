@@ -10,13 +10,12 @@ Source0:	%{name}-%{_snap}.tar.bz2
 # Source0-md5:	d39448dc6cca0ba00d5a8c5735da92ef
 Patch0:		%{name}-rootdir.patch
 URL:		http://www.wine-doors.org/
+Requires:	python
 #Requires:	wine
 #Requires:	wine-programs
 BuildArch:	noarch
 ExclusiveArch:	%{ix86} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_winetoolsdir	%{_datadir}/%{name}
 
 %description
 Wine-doors provides a replacement for winetools which adds apt/yum
