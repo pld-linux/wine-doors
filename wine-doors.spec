@@ -1,5 +1,5 @@
 %define		_snap	20061221.386
-%define		_rel	0.2
+%define		_rel	0.5
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Name:		wine-doors
 Version:	0.1
@@ -32,6 +32,8 @@ utilises resources from the Tango Project.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+export USER=root # to fool setup.py with wineroot detection
 
 python setup.py install \
 	--root=$RPM_BUILD_ROOT \
