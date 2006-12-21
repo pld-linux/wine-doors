@@ -1,5 +1,5 @@
---- wine-doors/setup.py	2006-12-21 11:19:19.633599187 +0200
-+++ wine-doors/setup.py	2006-12-21 11:22:29.197851497 +0200
+--- wine-doors/setup.py	2006-12-21 11:22:29.197851497 +0200
++++ wine-doors/setup.py	2006-12-22 00:58:53.807224156 +0200
 @@ -46,7 +46,9 @@
  	print " uninstall - uninstalls wine-doors"
  	print "	--help - display this usage message (default)\n"
@@ -40,7 +40,7 @@
 -			share = prefix + "share/wine-doors/"
 -			conf_file = "/etc/wine-doors/preferences.xml"
 -			copyfile( "./dist/wine-doors.desktop",  prefix + "share/applications/wine-doors.desktop" )		
-+			share = os.path.join(root + prefix, "share/wine-doors")
++			share = os.path.join(prefix, "share/wine-doors")
 +			conf_file = os.path.join(root, "etc/wine-doors/preferences.xml")
 +			copyfile( "./dist/wine-doors.desktop",  os.path.join(root + prefix, "share/applications/wine-doors.desktop") )
  		else:
@@ -61,24 +61,24 @@
 -			os.makedirs( share + "global.repo" )
 -		copygzip( "./repos/base.repo/packlist.xml", share + "base.repo/packlist.xml.gz" )
 -		copypacks( "./repos/base.repo/", share + "global.repo/" )
-+		if not os.path.isdir( os.path.join(share, "base.repo") ):
-+			os.makedirs( os.path.join(share, "base.repo") )
-+		if not os.path.isdir( os.path.join(share, "global.repo") ):
-+			os.makedirs( os.path.join(share, "global.repo") )
-+		copygzip( "./repos/base.repo/packlist.xml", os.path.join(share, "base.repo/packlist.xml.gz") )
-+		copypacks( "./repos/base.repo", os.path.join(share, "global.repo") )
++		if not os.path.isdir( os.path.join(root + share, "base.repo") ):
++			os.makedirs( os.path.join(root + share, "base.repo") )
++		if not os.path.isdir( os.path.join(root + share, "global.repo") ):
++			os.makedirs( os.path.join(root + share, "global.repo") )
++		copygzip( "./repos/base.repo/packlist.xml", os.path.join(root + share, "base.repo/packlist.xml.gz") )
++		copypacks( "./repos/base.repo", os.path.join(root + share, "global.repo") )
  		print "  ** Base Repo"
 -		copygzip( "./repos/global.repo/packlist.xml", share + "global.repo/packlist.xml.gz" )
-+		copygzip( "./repos/global.repo/packlist.xml", os.path.join(share, "global.repo/packlist.xml.gz") )
++		copygzip( "./repos/global.repo/packlist.xml", os.path.join(root + share, "global.repo/packlist.xml.gz") )
  		print "  ** Global Repo"
 -		copypacks( "./repos/global.repo/", share + "global.repo/" )
 -		copyfiles( "./src", share + "src" )
 -		copyfiles( "./pixmaps", share + "pixmaps" )
 -		copyfiles( "./dtd", share + "dtd" )
-+		copypacks( "./repos/global.repo", os.path.join(share, "global.repo") )
-+		copyfiles( "./src", os.path.join(share, "src") )
-+		copyfiles( "./pixmaps", os.path.join(share, "pixmaps") )
-+		copyfiles( "./dtd", os.path.join(share, "dtd") )
++		copypacks( "./repos/global.repo", os.path.join(root + share, "global.repo") )
++		copyfiles( "./src", os.path.join(root + share, "src") )
++		copyfiles( "./pixmaps", os.path.join(root + share, "pixmaps") )
++		copyfiles( "./dtd", os.path.join(root + share, "dtd") )
  
  		print "Symlinking resources"
 -		if os.environ['USER'] == "root":
