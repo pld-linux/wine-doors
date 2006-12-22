@@ -1,5 +1,7 @@
+# TODO
+# - build: which: no wine in (/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin)
 %define		_snap	20061221.386
-%define		_rel	0.5
+%define		_rel	0.7
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Name:		wine-doors
 Version:	0.1
@@ -30,6 +32,14 @@ utilises resources from the Tango Project.
 %setup -q -n %{name}
 %patch0 -p1
 
+cat <<'EOF' > %{name}.sh
+#!/bin/sh
+exec %{__python} %{_datadir}/%{name}/src/winedoors.pyo
+EOF
+
+%{__sed} -i -e '1s,#.*python,#!%{__python},' src/winedoors.py
+chmod 644 src/winedoors.py
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -39,11 +49,12 @@ python setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--prefix=%{_prefix}
 
-ln -sf %{_datadir}/%{name}/src/winedoors.py $RPM_BUILD_ROOT%{_bindir}/%{name}
+rm -f $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -D %{name}.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
-#py_postclean %{_datadir}/%{name}/src
+%py_postclean %{_datadir}/%{name}/src
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,4 +78,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/src/winedoors.glade
 %{_datadir}/%{name}/src/winedoors.gladep
 %{_datadir}/%{name}/src/*.py[co]
-%attr(755,root,root) %{_datadir}/%{name}/src/*.py
