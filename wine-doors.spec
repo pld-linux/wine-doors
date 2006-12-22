@@ -38,7 +38,6 @@ exec %{__python} %{_datadir}/%{name}/src/winedoors.pyo
 EOF
 
 %{__sed} -i -e '1s,#.*python,#!%{__python},' src/winedoors.py
-chmod 644 src/winedoors.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
