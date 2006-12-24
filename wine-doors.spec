@@ -11,6 +11,7 @@ Group:		Applications/Emulators
 Source0:	%{name}-%{_snap}.tar.bz2
 # Source0-md5:	d39448dc6cca0ba00d5a8c5735da92ef
 Patch0:		%{name}-rootdir.patch
+Patch1:		%{name}-wineroot.patch
 URL:		http://www.wine-doors.org/
 Requires:	python
 #Requires:	wine
@@ -31,6 +32,7 @@ utilises resources from the Tango Project.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
