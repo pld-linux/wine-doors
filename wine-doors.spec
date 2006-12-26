@@ -3,6 +3,7 @@
 %define		_snap	20061221.386
 %define		_rel	0.7
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
+Summary(pl):	Wine-Doors - zarz±dzanie aplikacjami Windows dla ¶rodowiska GNOME
 Name:		wine-doors
 Version:	0.1
 Release:	0.%{_snap}.%{_rel}
@@ -26,8 +27,16 @@ functionality to wine, doing away with the bad aspects of winetools
 whilst keeping the good ones and extending on the origninal idea with
 a more modern design approach.
 
-Wine-Doors is licensed under the GNU general public license and
+Wine-Doors is licensed under the GNU General Public License and
 utilises resources from the Tango Project.
+
+%description -l pl
+Wine-doors dostarcza zamiennik winetools dodaj±cy funkcjonalno¶æ
+apt/yum do wine, unikaj±c z³ych aspektów winetools, a zachowuj±c dobre
+i rozszerzaj±c oryginalny pomys³ o bardziej wspó³czesne podej¶cie.
+
+Wine-Doors jest udostêpniany na Powszechnej Licencji Publicznej GNU
+(General Public License) i wykorzystuje zasoby z projektu Tango.
 
 %prep
 %setup -q -n %{name}
