@@ -3,7 +3,7 @@
 %define		_snap	20070203.420
 %define		_rel	0.1
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
-Summary(pl.UTF-8):   Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
+Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
 Version:	0.1
 Release:	0.%{_snap}.%{_rel}
