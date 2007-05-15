@@ -1,6 +1,6 @@
 # TODO
 # - build: which: no wine in (/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin)
-%define		_snap	20070203.420
+%define		_snap	20070515.697
 %define		_rel	0.1
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
@@ -10,9 +10,8 @@ Release:	0.%{_snap}.%{_rel}
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
 Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	fbb9f9f5fe587004a0a8e049fb4672cf
+# Source0-md5:	2297980ddd54b919acc8dadd72b4a915
 Patch0:		%{name}-rootdir.patch
-Patch1:		%{name}-wineroot.patch
 URL:		http://www.wine-doors.org/
 Requires:	python
 #Requires:	wine
@@ -40,8 +39,7 @@ Wine-Doors jest udostępniany na Powszechnej Licencji Publicznej GNU
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
