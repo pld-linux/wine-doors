@@ -1,19 +1,21 @@
-# TODO
-# - build: which: no wine in (/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin)
-%define		_snap	20070515.697
-%define		_rel	0.1
+%define		_pre	pre1
+%define		_rel	0.3
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
 Version:	0.1
-Release:	0.%{_snap}.%{_rel}
+Release:	1.%{_pre}.%{_rel}
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
-Source0:	%{name}-%{_snap}.tar.bz2
-# Source0-md5:	2297980ddd54b919acc8dadd72b4a915
-Patch0:		%{name}-rootdir.patch
+Source0:	http://www.wine-doors.org/releases/%{name}-%{version}%{_pre}.tar.gz
+# Source0-md5:	03db43c3af6dd6e21a49da428d80fa21
 URL:		http://www.wine-doors.org/
+Requires:	cairo >= 1.2.4
 Requires:	python
+Requires:	python-gnome-desktop-librsvg >= 2.16
+Requires:	python-libxml2
+Requires:	python-pycairo >= 1.2.0
+Requires:	python-pygtk-glade
 #Requires:	wine
 #Requires:	wine-programs
 BuildArch:	noarch
@@ -38,8 +40,7 @@ Wine-Doors jest udostępniany na Powszechnej Licencji Publicznej GNU
 (General Public License) i wykorzystuje zasoby z projektu Tango.
 
 %prep
-%setup -q -n %{name}
-#%patch0 -p1
+%setup -q -n %{name}-%{version}%{_pre}
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
@@ -51,11 +52,10 @@ EOF
 %install
 rm -rf $RPM_BUILD_ROOT
 
-export USER=root # to fool setup.py with wineroot detection
-
-python setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--prefix=%{_prefix}
+python setup.py install -S \
+	--temp=$RPM_BUILD_ROOT \
+	--prefix=/ \
+	--config=%{_sysconfdir}/%{name}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/%{name}
 install -D %{name}.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
@@ -63,6 +63,7 @@ install -D %{name}.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
 %py_postclean %{_datadir}/%{name}/src
+rm $RPM_BUILD_ROOT%{_datadir}/%{name}/src/*.bak
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -77,12 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/base.repo
 %{_datadir}/%{name}/global.repo
+%{_datadir}/%{name}/games.repo
 %{_datadir}/%{name}/dtd
 %{_datadir}/%{name}/pixmaps
+%{_datadir}/%{name}/registry
 %dir %{_datadir}/%{name}/src
-%{_datadir}/%{name}/src/*.svg
-%{_datadir}/%{name}/src/*.xml
 %{_datadir}/%{name}/src/*.png
+%{_datadir}/%{name}/src/*.sh
+%{_datadir}/%{name}/src/*.svg
 %{_datadir}/%{name}/src/winedoors.glade
 %{_datadir}/%{name}/src/winedoors.gladep
 %{_datadir}/%{name}/src/*.py[co]
