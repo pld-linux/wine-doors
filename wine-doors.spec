@@ -17,6 +17,7 @@ Requires:	python-gnome-desktop-librsvg >= 2.16
 Requires:	python-libxml2
 Requires:	python-pycairo >= 1.2.0
 Requires:	python-pygtk-glade
+Requires:	which
 #Requires:	wine
 #Requires:	wine-programs
 BuildArch:	noarch
