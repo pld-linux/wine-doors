@@ -10,6 +10,7 @@ Group:		Applications/Emulators
 Source0:	http://www.wine-doors.org/releases/%{name}-%{version}%{_pre}.tar.gz
 # Source0-md5:	03db43c3af6dd6e21a49da428d80fa21
 URL:		http://www.wine-doors.org/
+BuildRequires:	rpm-pythonprov
 Requires:	cairo >= 1.2.4
 Requires:	python
 Requires:	python-gnome-desktop-librsvg >= 2.16
