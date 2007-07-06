@@ -2,7 +2,7 @@ Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
 Version:	0.1
-Release:	1.1
+Release:	2
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
 Source0:	http://www.wine-doors.org/releases/%{name}-%{version}.tar.gz
