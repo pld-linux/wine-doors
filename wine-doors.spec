@@ -1,14 +1,12 @@
-%define		_pre	pre1
-%define		_rel	0.3
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
 Version:	0.1
-Release:	1.%{_pre}.%{_rel}
+Release:	1.1
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
-Source0:	http://www.wine-doors.org/releases/%{name}-%{version}%{_pre}.tar.gz
-# Source0-md5:	03db43c3af6dd6e21a49da428d80fa21
+Source0:	http://www.wine-doors.org/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	0f95c9b15f2d74255279d9f33488f384
 URL:		http://www.wine-doors.org/
 BuildRequires:	rpm-pythonprov
 Requires:	cairo >= 1.2.4
@@ -42,7 +40,7 @@ Wine-Doors jest udostępniany na Powszechnej Licencji Publicznej GNU
 (General Public License) i wykorzystuje zasoby z projektu Tango.
 
 %prep
-%setup -q -n %{name}-%{version}%{_pre}
+%setup -q
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
@@ -65,7 +63,6 @@ install -D %{name}.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}/src
 %py_postclean %{_datadir}/%{name}/src
-rm $RPM_BUILD_ROOT%{_datadir}/%{name}/src/*.bak
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -79,9 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/wine-doors.desktop
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/base.repo
-%{_datadir}/%{name}/global.repo
-%{_datadir}/%{name}/games.repo
-%{_datadir}/%{name}/dtd
+#%{_datadir}/%{name}/global.repo
+#%{_datadir}/%{name}/games.repo
+#%{_datadir}/%{name}/dtd
 %{_datadir}/%{name}/pixmaps
 %{_datadir}/%{name}/registry
 %dir %{_datadir}/%{name}/src
