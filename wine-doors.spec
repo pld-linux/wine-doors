@@ -1,12 +1,12 @@
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
-Version:	0.1
-Release:	2
+Version:	0.1.1
+Release:	1
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
 Source0:	http://www.wine-doors.org/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	0f95c9b15f2d74255279d9f33488f384
+# Source0-md5:	7589d810e0b9821ae5efd10c36d107d4
 URL:		http://www.wine-doors.org/
 BuildRequires:	rpm-pythonprov
 Requires:	cairo >= 1.2.4
