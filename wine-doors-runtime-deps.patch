@@ -1,0 +1,58 @@
+--- wine-doors-0.1.2/setup.py~	2008-01-21 21:00:40.000000000 +0100
++++ wine-doors-0.1.2/setup.py	2008-01-22 13:42:36.730291231 +0100
+@@ -100,55 +100,6 @@
+     if command == "install":
+         depsmet = True
+         hasui = True
+-        print "Checking dependencies"
+-        print "  wine . . . ",
+-        if os.popen( "which wine" ).read().rstrip() != "":
+-            print "Found"
+-        else:
+-            print "Not found !"
+-            depsmet = False
+-        print "  cabextract . . . ",
+-        if os.popen( "which cabextract" ).read().rstrip() != "":
+-            print "Found"
+-        else:
+-            print "Not found !"
+-            depsmet = False
+-        print "  tar . . . ",
+-        if os.popen( "which tar" ).read().rstrip() != "":
+-            print "Found"
+-        else:
+-            print "Not found !"
+-            depsmet = False
+-        print "  ps . . . ",
+-        if os.popen( "which ps" ).read().rstrip() != "":
+-            print "Found"
+-        else:
+-            print "Not found !"
+-            depsmet = False
+-            
+-        print "  pygtk . . . (python-gtk2)",
+-        try:
+-            import gtk, gobject
+-            print "Found"
+-        except:
+-            print "Not found"
+-            hasui = False
+-
+-        print "  pycairo . . . (python-cairo)",
+-        try:
+-            import cairo
+-            print "Found"
+-        except:
+-            print "Not found"
+-            hasui = False
+-
+-        print "  rsvg . . . (python-gnome2-desktop)",
+-        try:
+-            import rsvg
+-            print "Found"
+-        except:
+-            print "Not found"
+-            hasui = False
+ 
+         if not depsmet:
+             print "Dependencies not met"
