@@ -1,13 +1,14 @@
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
-Version:	0.1.2
-Release:	2
+Version:	0.1.3
+Release:	0.1
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
 Source0:	http://www.wine-doors.org/releases/%{name}-%{version}.tar.gz
-# Source0-md5:	de4af9b78210b328eebe17cff2f78b94
+# Source0-md5:	6e3222aec59439e7bc1c2387092fb251
 Patch0:		%{name}-runtime-deps.patch
+Patch1:		%{name}-install-paths.patch
 URL:		http://www.wine-doors.org/
 Requires:	cabextract
 Requires:	cairo >= 1.2.4
@@ -44,6 +45,7 @@ Wine-Doors jest udostępniany na Powszechnej Licencji Publicznej GNU
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
@@ -56,9 +58,9 @@ EOF
 rm -rf $RPM_BUILD_ROOT
 
 python setup.py install \
-	--root=$RPM_BUILD_ROOT \
+	--temp=$RPM_BUILD_ROOT \
 	--config=%{_sysconfdir}/%{name} \
-	--sysinstall
+	-S
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/%{name}
 install -D %{name}.sh $RPM_BUILD_ROOT%{_bindir}/%{name}
