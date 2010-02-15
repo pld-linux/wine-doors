@@ -25,6 +25,9 @@ ExclusiveArch:	%{ix86}
 ExcludeArch:	i386
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+# no binary contents
+%define		_enable_debug_packages	0
+
 %description
 Wine-doors provides a replacement for winetools which adds apt/yum
 functionality to wine, doing away with the bad aspects of winetools
@@ -53,11 +56,13 @@ EOF
 
 %{__sed} -i -e '1s,#.*python,#!%{__python},' src/winedoors.py
 
+# cleanup backups after patching
+find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
+
 %install
 rm -rf $RPM_BUILD_ROOT
-
 export USER=root
-python setup.py install \
+%{__python} setup.py install \
 	--temp=$RPM_BUILD_ROOT \
 	--config=%{_sysconfdir}/%{name} \
 	-S
