@@ -1,14 +1,16 @@
 Summary:	Wine-Doors - Windows application management for the GNOME desktop
 Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska GNOME
 Name:		wine-doors
-Version:	0.1.3
-Release:	3
+Version:	0.1.4
+%define	_rc	a2
+Release:	0.%{_rc}.0.1
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
-Source0:	http://wddb.wine-doors.org/system/files/%{name}-%{version}rc1.tar_.gz
-# Source0-md5:	09b243103f7f733f3cd4ce694d5af3b6
+Source0:	http://sourceforge.net/projects/winedoors/files/%{name}-%{version}%{_rc}.tar.gz
+# Source0-md5:	78d5acd1b65bee9cd08b0a2b31ad8d45
 Patch0:		%{name}-runtime-deps.patch
-URL:		http://www.wine-doors.org/
+#URL:		http://www.wine-doors.org/	Dead URL
+URL:		http://sourceforge.net/projects/winedoors/
 Requires:	cabextract
 Requires:	cairo >= 1.2.4
 Requires:	python
@@ -46,8 +48,8 @@ Wine-Doors jest udostępniany na Powszechnej Licencji Publicznej GNU
 (General Public License) i wykorzystuje zasoby z projektu Tango.
 
 %prep
-%setup -q -n %{name}-%{version}rc1
-%patch0 -p1
+%setup -q -c -n %{name}-%{version}%{_rc}
+#patch0 -p1
 
 cat <<'EOF' > %{name}.sh
 #!/bin/sh
