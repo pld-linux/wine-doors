@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Wine-Doors - zarządzanie aplikacjami Windows dla środowiska
 Name:		wine-doors
 Version:	0.1.4
 %define	_rc	a2
-Release:	0.%{_rc}.0.1
+Release:	0.%{_rc}.0.9
 License:	GPL (application), Creative Commons (artwork)
 Group:		Applications/Emulators
 Source0:	http://sourceforge.net/projects/winedoors/files/%{name}-%{version}%{_rc}.tar.gz
@@ -98,3 +98,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/src/winedoors.glade
 %{_datadir}/%{name}/src/winedoors.gladep
 %{_datadir}/%{name}/src/*.py[co]
+## Repositories should be as separate package?
+%dir %{_datadir}/%{name}/applications.repo
+%dir %{_datadir}/%{name}/base.repo
+%dir %{_datadir}/%{name}/games.repo
+%dir %{_datadir}/%{name}/libraries.repo
+%{_datadir}/%{name}/applications.repo/*.wdi
+%{_datadir}/%{name}/base.repo/*.wdi
+%{_datadir}/%{name}/games.repo/*.wdi
+%{_datadir}/%{name}/libraries.repo/*.wdi
+%{_datadir}/%{name}/applications.repo/*.xml.gz
+%{_datadir}/%{name}/base.repo/*.xml.gz
+%{_datadir}/%{name}/games.repo/*.xml.gz
+%{_datadir}/%{name}/libraries.repo/*.xml.gz
