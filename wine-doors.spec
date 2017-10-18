@@ -11,6 +11,7 @@ Source0:	http://sourceforge.net/projects/winedoors/files/%{name}-%{version}%{_rc
 Patch0:		%{name}-runtime-deps.patch
 #URL:		http://www.wine-doors.org/	Dead URL
 URL:		http://sourceforge.net/projects/winedoors/
+BuildRequires:	synce-orange
 Requires:	cabextract
 Requires:	cairo >= 1.2.4
 Requires:	python
@@ -18,6 +19,7 @@ Requires:	python-gnome-desktop-librsvg >= 2.16
 Requires:	python-libxml2
 Requires:	python-pycairo >= 1.2.0
 Requires:	python-pygtk-glade
+Requires:	synce-orange
 Requires:	which
 Requires:	wine
 Requires:	wine-programs
